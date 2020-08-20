@@ -1,12 +1,11 @@
-function testexp_1(~)
-MetaData()
+
 %set experiment parameters
 num_trials = 10;
 num_channels = 6;
 
 %create data and metadata struct
 exp.data = nan(num_trials,num_channels);
-exp.metadata = app.MetaData;
+exp.metadata = app.metadata;
            
 % run experiment
 for t = 1:num_trials
@@ -20,10 +19,11 @@ for t = 1:num_trials
     app.ph.XData = [0 progress progress 0]; 
 
     %%%here, use "progress_text" to update the GUI's experiment text field
-    app.th.String = progress_text;
+    app.ProgressTextLabel.Text = progress_text;
      
     drawnow %update graphics
 end
 
 %save exp struct
-save(app.savefile,'exp');
+save(exp.metadata.savedir,'exp');
+
