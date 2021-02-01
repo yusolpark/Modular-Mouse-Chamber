@@ -1,7 +1,7 @@
 //initialize all global variables
 int valvepins[] = {2, 3, 4, 5}; //output pins for reward valves 1, 2, 3, and 4
 int sensorpins[] = {0, 1, 2, 3}; // input pins for nosepoke detector 1, 2, 3, and 4
-int sensorvals[] = {0, 0, 0, 0}; // variable to store the values coming from the sensors
+uint8_t sensorvals[] = {0, 0, 0, 0}; // variable to store the values coming from the sensors
 int i = 0;
 //any more variables?
 
