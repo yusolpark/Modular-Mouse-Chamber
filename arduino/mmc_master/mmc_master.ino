@@ -15,6 +15,9 @@ void setup() {
   } 
 
   //////////set the sensor pins to input here
+  for (i = 0; i <= 3; i++) {
+    pinMode(sensorpins[i], INPUT);
+  }
 }
 
 void loop() {
