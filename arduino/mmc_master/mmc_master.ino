@@ -52,55 +52,21 @@ void loop() {
     case 101: //reward at display
        wait4Serial(1); 
        rewardloc = readSerialMessage();
-       
-          switch(rewardloc){
-            case 0: //reward at cue position 
-               digitalWrite(valvepins[0], HIGH); //open valve
-               delay(1000); //keep valve 0 open for 1000 ms
-               digitalWrite(valvepins[0], LOW); //close valve
-            break;
-            
-            case 1: //reward at 1
-               digitalWrite(valvepins[1], HIGH); 
-               delay(1000); 
-               digitalWrite(valvepins[1], LOW); 
-            break;
-            
-            case 2: //reward at 2
-               digitalWrite(valvepins[2], HIGH); 
-               delay(1000); 
-               digitalWrite(valvepins[2], LOW); 
-            break;
 
-            case 3: //reward at 3
-               digitalWrite(valvepins[3], HIGH); 
-               delay(1000); 
-               digitalWrite(valvepins[3], LOW); 
-            break;
-          }
+       digitalWrite(valvepins[rewardloc], HIGH); //open valve at rewardloc
+       delay(1000); //keep valve 0 open for 1000 ms
+       digitalWrite(valvepins[rewardloc], LOW); //close valve at rewardloc
+          
      break; //finish reward
   }
   
   //////read all 4 sensor signals (the values will go high for nose pokes)
   for (int i = 0; i <= 3; i++) {
     sensorvals[i] = analogRead(sensorpins[i]);
-    if sensorvals[i] < 512 {
-      send_message(10+i); //send poke location
+    if sensorvals[i] < 128 {
+      Serial.write(10+i); //send poke location
     }
   }
-
-
-/*give a reward at a position that detected a nose pokeves, turns on/off backlights, sends serial data corresponding to sensor signals
-  for (int i = 0; i <= 3; i++) { //loop for all 4 positions
-    if (sensorvals[i] < 512) {
-      digitalWrite(valvepins[i], HIGH); //open valve
-      delay(1000); //keep valve i open for 1000 ms
-      digitalWrite(valvepins[i], LOW); //close valve
-    }
-  }
-}
-*/
-
 
 //wait for desired amount of available serial data bytes
 void wait4Serial(int num2wait4) {
