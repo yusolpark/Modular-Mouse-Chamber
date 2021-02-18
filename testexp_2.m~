@@ -61,7 +61,7 @@ save(exp.metadata.savedir,'exp');
 
 %example code to send data over serial
 %setup: (only have to do this once)
-arduino_main = serialport("COM4",'BaudRate',9600); %define arduino_main serial object
+arduino_main = serialp("COM4",'BaudRate',9600); %define arduino_main serial object
 fopen(arduino_main); %open connection to serial port
 
 %sending data
