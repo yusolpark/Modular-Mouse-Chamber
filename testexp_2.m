@@ -15,6 +15,7 @@ for t = 1:num_trials
     %send stimulus to display at cue position
     
     fwrite(mmc.controller, [100, 0], 'uint8');
+    delay(10);
 
     %wait for poke at cue position
     while ser.BytesAvailable==0 || fread(ser,1,'uint8')~=10
@@ -43,19 +44,18 @@ for t = 1:num_trials
         end
         delay(0.01);
     end
-       
-end 
- 
-    %trial is now complete and can restart
-    %in data struct, save timestamp at cue poke, timestamp at reward poke,
-    %cue location, reward location, anything else? timestamp at incorrect poke(s)?
     
     %calculate progress of the experiment and update GUI
     progress_text = ['Trial ' num2str(t) ' of ' num2str(num_trials)];
     app.ProgressTextLabel.Text = progress_text;
     progress = 100*t/num_trials;
     app.ph.XData = [0 progress progress 0]; 
-    drawnow %update graphics
+    drawnow %update graphics    
+end 
+ 
+    %trial is now complete and can restart
+    %in data struct, save timestamp at cue poke, timestamp at reward poke,
+    %cue location, reward location, anything else? timestamp at incorrect poke(s)?
 
 
 %save exp struct
