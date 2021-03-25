@@ -1,7 +1,7 @@
 %open connection to controller 
 clear mmc
-mmc.port = 'COM7';
-
+%mmc.port = 'COM7';
+mmc.port = '/dev/cu.usbmodem14201';
 %set experiment parameters
 num_trials = 30;
 num_channels = 6; %number of data channels (not sure how many we need yet)
@@ -65,6 +65,8 @@ save(exp.metadata.savedir,'exp');
 %example code to send data over serial
 %setup: (only have to do this once)
 arduino_main = serialport("COM4",'BaudRate',9600); %define arduino_main serial object
+arduino_main = serialport("COM4",'BaudRate',9600); %define arduino_main serial object
+
 fopen(arduino_main); %open connection to serial port
 
 %sending data
