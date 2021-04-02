@@ -3,7 +3,7 @@ int valvepins[] = {2, 3, 4, 5}; //output pins for reward valves 1, 2, 3, and 4
 int sensorpins[] = {0, 1, 2, 3}; // input pins for nosepoke detector 1, 2, 3, and 4
 uint8_t sensorvals[] = {0, 0, 0, 0}; // variable to store the values coming from the sensors
 int i = 0;
-//any more variables?
+uint8_t instruction, disloc, rewardloc;
 
 void setup() {
   Serial.begin(9600); // set up Serial library at 9600 bps
@@ -18,6 +18,16 @@ void setup() {
   for (i = 0; i <= 3; i++) {
     pinMode(sensorpins[i], INPUT);
   }
+}
+
+//read serial message
+uint8_t readSerialMessage() {
+  int msg16 = Serial.read();
+  uint8_t msg = 0;
+  if (msg16!=-1) {
+    msg = msg16;
+  }
+  return msg;
 }
 
 void loop() {
@@ -63,10 +73,11 @@ void loop() {
   //////read all 4 sensor signals (the values will go high for nose pokes)
   for (int i = 0; i <= 3; i++) {
     sensorvals[i] = analogRead(sensorpins[i]);
-    if sensorvals[i] < 128 {
+    if (sensorvals[i] < 128) {
       Serial.write(10+i); //send poke location
     }
   }
+}
 
 //wait for desired amount of available serial data bytes
 void wait4Serial(int num2wait4) {
