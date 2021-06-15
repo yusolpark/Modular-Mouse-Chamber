@@ -7,6 +7,7 @@ num_channels = 6;
 exp.data = nan(num_trials,num_channels);
 exp.metadata = app.metadata;
            
+
 % run experiment
 for t = 1:num_trials
     pause(2)
